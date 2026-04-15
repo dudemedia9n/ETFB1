@@ -4950,7 +4950,9 @@ function Library:Create(options)
 			table.insert(
 				ConnectionBin,
 				UserInputService.InputBegan:Connect(function(input)
-				if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Tab.Hover then
+					if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Tab.Hover then
+						if Gui.Hidden then
+							Library:Tween(Gui["18"], {
 								Length = 0.3,
 								Goal = { Position = UDim2.new(0, 0, 0, 452) },
 							})
