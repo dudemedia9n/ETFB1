@@ -4948,38 +4948,25 @@ function Library:Create(options)
 			)
 
 			table.insert(
-				ConnectionBin,
-				UserInputService.InputBegan:Connect(function(input)
-					if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Tab.Hover then
-						if Gui.Hidden then
-							Library:Tween(Gui["18"], {
-								Length = 0.3,
-								Goal = { Position = UDim2.new(0, 0, 0, 452) },
-							})
-
-							Library:Tween(Gui["18"], {
-								Length = 0.3,
-								Goal = { Size = UDim2.new(0, 498, 0, 0) },
-							})
-
-							Gui.Hidden = true
-						else
-							Library:Tween(Gui["18"], {
-								Length = 0.3,
-								Goal = { Position = UDim2.new(0, 0, 0, 0) },
-							})
-
-							Library:Tween(Gui["18"], {
-								Length = 0.3,
-								Goal = { Size = UDim2.new(0, 498, 0, 452) },
-							})
-
-							Gui.Hidden = false
-						end
-
-						Tab:Activate()
-					end
-				end)
+    ConnectionBin,
+    UserInputService.InputBegan:Connect(function(input)
+        -- Check if the click/touch is on the tab and the tab is hovered 
+        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Tab.Hover then
+            if not Gui.Hidden then
+                -- MINIMIZE: If not hidden, hide the MainFrame (Gui["18"]) 
+                Library:Tween(Gui["18"], { Length = 0.3, Goal = { Position = UDim2.new(0, 0, 0, 452) } })
+                Library:Tween(Gui["18"], { Length = 0.3, Goal = { Size = UDim2.new(0, 498, 0, 0) } })
+                Gui.Hidden = true -- [cite: 159]
+            else
+                -- MAXIMIZE: If hidden, show the MainFrame again 
+                Library:Tween(Gui["18"], { Length = 0.3, Goal = { Position = UDim2.new(0, 0, 0, 0) } })
+                Library:Tween(Gui["18"], { Length = 0.3, Goal = { Size = UDim2.new(0, 498, 0, 452) } })
+                Gui.Hidden = false -- [cite: 159]
+            end
+            Tab:Activate() -- [cite: 161]
+        end
+    end)
+)
 			)
 
 			function Tab:Activate()
